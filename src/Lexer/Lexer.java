@@ -128,7 +128,7 @@ public class Lexer {
             else currentPos--;
 
             int value=Integer.parseInt(tokenData);
-            if(value>9999){
+            if(value>999999){
                 return new Token(Token.TokenType.ERROR, "Number out of range: "+tokenData, currentLine);
             }
             else{

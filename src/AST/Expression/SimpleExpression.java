@@ -52,7 +52,18 @@ public class SimpleExpression extends Expression {
                 }
                 return result;
             case MLT:
-                result=new NumberValueFactor(leftFactor.getValue()*rightFactor.getValue(), leftFactor.getUnit()+"*"+rightFactor.getUnit());
+                if(leftFactor.getUnit().equals("") && rightFactor.getUnit().equals("")){
+                    result=new NumberValueFactor(leftFactor.getValue()*rightFactor.getValue(), leftFactor.getUnit());
+                }
+                else if(rightFactor.getUnit().equals("")){
+                    result=new NumberValueFactor(leftFactor.getValue()*rightFactor.getValue(), leftFactor.getUnit());
+                }
+                else if(leftFactor.getUnit().equals("")){
+                    result=new NumberValueFactor(leftFactor.getValue()*rightFactor.getValue(), rightFactor.getUnit());
+                }
+                else{
+                    result=new NumberValueFactor(leftFactor.getValue()*rightFactor.getValue(), leftFactor.getUnit()+"*"+rightFactor.getUnit());
+                }
                 return result;
         }
         throw new Exception("ERROR");

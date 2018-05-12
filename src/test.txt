@@ -4,10 +4,17 @@ vel=20[m]/2[s];
 time=2[s];
 acc=vel/time;
 while(i>0[]){
-force=mass*acc;
-i=i-1[];
-acc=acc-1[m/s/s];
+    force=mass*acc;
+    i=i-1[];
+    acc=acc-1[m/s/s];
 }
 d = 5[s];
 e = 10[A];
 z=d*e;
+
+dzulesrule = force * 10[m];
+
+zczx=2[kg*m];
+cczz=10[m*kg];
+
+x = 10[]*mass-2[kg]*2[];

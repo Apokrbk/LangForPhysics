@@ -287,7 +287,7 @@ public class ParserTest {
         Parser parser = new Parser(lexer);
         Program program = parser.parse();
         String statement=program.toString();
-        assertEquals("x=2[kg*m/s/s];", statement);
+        assertEquals("x=2[N];", statement);
     }
 
     @Test(expected = Exception.class)
@@ -297,15 +297,4 @@ public class ParserTest {
         Program program = parser.parse();
         String statement=program.toString();
     }
-
-    @Test
-    public void dlaczegoToNieDziala() throws Exception {
-        Lexer lexer = new Lexer("if(a>b and c>d){x=2[kg];}");
-        Parser parser = new Parser(lexer);
-        Program program = parser.parse();
-        String statement=program.toString();
-        assertEquals("if(((a>b) and (c>d))){\n" +
-                "x=2[kg];}", statement);
-    }
-
 }

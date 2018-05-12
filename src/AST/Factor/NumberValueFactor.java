@@ -43,10 +43,11 @@ public class NumberValueFactor extends Factor{
         unit="";
         shortenFraction(denominator, nominator);
         checkN(denominator, nominator);
-        if(nominator.contains("A") && nominator.contains("s")){
-            nominator.remove("A");
-            nominator.remove("s");
-            nominator.add("C");
+        checkC(nominator);
+        if(nominator.contains("N") && nominator.contains("m")){
+            nominator.remove("N");
+            nominator.remove("m");
+            nominator.add("J");
         }
         Collections.sort(nominator);
         Collections.sort(denominator);
@@ -56,6 +57,14 @@ public class NumberValueFactor extends Factor{
         for(int i=0; i<denominator.size(); i++)
             unit+="/"+denominator.get(i);
 
+    }
+
+    private void checkC(ArrayList<String> nominator) {
+        if(nominator.contains("A") && nominator.contains("s")){
+            nominator.remove("A");
+            nominator.remove("s");
+            nominator.add("C");
+        }
     }
 
     private void divideUnitIntoNominatorAndDenominator(String[] a, ArrayList<String> denominator, ArrayList<String> nominator) {
