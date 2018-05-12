@@ -41,7 +41,7 @@ public class Lexer {
         }
         Token x = trySimpleSign();
         if (x != null) return x;
-        if (isLetter(currentChar)) {
+        if (isLetter(currentChar) || currentChar=='_') {
             return tryIdentifier();
         }
         else if (isDigit(currentChar) && currentChar!='0') {
@@ -138,7 +138,7 @@ public class Lexer {
 
     private Token tryIdentifier() {
         StringBuilder tokenDataBuilder = new StringBuilder(tokenData);
-        while (isLetter(currentChar) || isDigit(currentChar)) {
+        while (isLetter(currentChar) || isDigit(currentChar) || currentChar=='_') {
             tokenDataBuilder.append(Character.toString(currentChar));
             nextChar();
         }
@@ -177,6 +177,10 @@ public class Lexer {
                 return new Token(Token.TokenType.UNIT, tokenData, currentLine);
             case "V":
                 return new Token(Token.TokenType.UNIT, tokenData, currentLine);
+            case "and":
+                return new Token(Token.TokenType.LOGANDOP, tokenData, currentLine);
+            case "or":
+                return new Token(Token.TokenType.LOGOROP, tokenData, currentLine);
             default:
                 return new Token(Token.TokenType.IDENTIFIER, tokenData, currentLine);
         }

@@ -1,16 +1,4 @@
-func multpl(f1, f2){
-return f1*f2;
-}
-i=5;
-mass=5[kg];
-vel=20[m]/2[s];
-time=2[s];
-acc=vel/time;
-while(i>0){
-force=multpl(mass,acc);
-if(force>19[N]){
-print("Force equals: ", force);
-}
-i=i-1;
-acc=acc-1[m/s*s];
+func a(a,b,c){
+a=2[]+2[];
+return a;
 }

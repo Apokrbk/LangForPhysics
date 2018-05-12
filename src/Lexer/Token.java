@@ -25,7 +25,9 @@ public class Token {
         STRING,
         COMMA,
         RETURNSTATEMENT,
-        PRINTSTATEMENT
+        PRINTSTATEMENT,
+        LOGANDOP,
+        LOGOROP
     }
 
     private TokenType type;
@@ -42,6 +44,7 @@ public class Token {
     public String toString() {
         return String.format(":: %s %s ::", type.name(), data);
     }
+
     public TokenType getType() {
         return type;
     }

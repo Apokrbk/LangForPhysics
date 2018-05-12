@@ -29,6 +29,14 @@ public class LexerTest {
     }
 
     @org.junit.Test
+    public void shouldReturnIdWhenGivenFloor() {
+        Lexer lexer = new Lexer("_");
+        Token token = lexer.nextToken();
+        assertEquals( Token.TokenType.IDENTIFIER, token.getType());
+        assertEquals("_", token.getData());
+    }
+
+    @org.junit.Test
     public void shouldReturnNumberTokenWhenGivenNumber() {
         Lexer lexer = new Lexer("1234");
         Token token = lexer.nextToken();
