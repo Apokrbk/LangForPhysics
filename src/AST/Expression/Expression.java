@@ -1,9 +1,10 @@
 package AST.Expression;
 
 import AST.Factor.NumberValueFactor;
+import Program.Context;
 
 public abstract class Expression {
-    public NumberValueFactor calculate() throws Exception {
+    public NumberValueFactor calculate(Context context) throws Exception {
         return null;
     }
 

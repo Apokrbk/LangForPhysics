@@ -5,7 +5,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import Program.*;
 
 public class Main {
     private static String readFile(String path, Charset encoding)
@@ -25,6 +25,10 @@ public class Main {
         }
         Lexer lexer = new Lexer(input);
         Parser parser = new Parser(lexer);
-        System.out.println(parser.parse());
+        Program program = parser.parse();
+        program.execute();
+        program.getContext().printVariables();
+
+
     }
 }

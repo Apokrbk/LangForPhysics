@@ -3,6 +3,7 @@ package Parser;
 import Program.Program;
 import Lexer.Lexer;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -280,9 +281,31 @@ public class ParserTest {
                 "x=125[s];}", statement);
     }
 
+    @Test
+    public void parseUnitWithManyUnits() throws Exception {
+        Lexer lexer = new Lexer("x = 2[kg*m/s/s]");
+        Parser parser = new Parser(lexer);
+        Program program = parser.parse();
+        String statement=program.toString();
+        assertEquals("x=2[kg*m/s/s];", statement);
+    }
 
+    @Test(expected = Exception.class)
+    public void parseUnitWithManyUnitsError() throws Exception {
+        Lexer lexer = new Lexer("x = 2[kg+m-s/s]");
+        Parser parser = new Parser(lexer);
+        Program program = parser.parse();
+        String statement=program.toString();
+    }
 
-
-
+    @Test
+    public void dlaczegoToNieDziala() throws Exception {
+        Lexer lexer = new Lexer("if(a>b and c>d){x=2[kg];}");
+        Parser parser = new Parser(lexer);
+        Program program = parser.parse();
+        String statement=program.toString();
+        assertEquals("if(((a>b) and (c>d))){\n" +
+                "x=2[kg];}", statement);
+    }
 
 }

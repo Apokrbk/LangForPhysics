@@ -17,6 +17,8 @@ import Lexer.Token;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static java.lang.Math.abs;
+
 public class Parser {
     private Lexer lexer;
     private Token token;
@@ -136,7 +138,7 @@ public class Parser {
         else if(token.getType() == Token.TokenType.LOGOROP)
             tok_prec=3;
         else if(token.getType() == Token.TokenType.LOGOP)
-            tok_prec=6;
+            tok_prec=5;
         else
             tok_prec=-1;
         return tok_prec;

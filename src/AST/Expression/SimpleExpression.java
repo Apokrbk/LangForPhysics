@@ -1,6 +1,7 @@
 package AST.Expression;
 
 import AST.Factor.NumberValueFactor;
+import Program.Context;
 
 public class SimpleExpression extends Expression {
     private Expression leftOperand;
@@ -19,30 +20,39 @@ public class SimpleExpression extends Expression {
     }
 
     @Override
-    public NumberValueFactor calculate() throws Exception {
-        NumberValueFactor leftFactor=leftOperand.calculate();
-        NumberValueFactor rightFactor=rightOperand.calculate();
+    public NumberValueFactor calculate(Context context) throws Exception {
+        NumberValueFactor leftFactor=leftOperand.calculate(context);
+        NumberValueFactor rightFactor=rightOperand.calculate(context);
         NumberValueFactor result;
         switch (operator.getOptype()){
             case MINUS:
                 if(leftFactor.isSameUnit(rightFactor)){
                     result=new NumberValueFactor(leftFactor.getValue()-rightFactor.getValue(), leftFactor.getUnit());
-                    result.refactorUnit();
                     return result;
                 }
+                throw new Exception("Trying to sum numbers with different unit");
             case PLUS:
                 if(leftFactor.isSameUnit(rightFactor)){
                     result=new NumberValueFactor(leftFactor.getValue()+rightFactor.getValue(), leftFactor.getUnit());
-                    result.refactorUnit();
                     return result;
                 }
+                throw new Exception("Trying to sum numbers with different unit");
             case DIV:
-                result=new NumberValueFactor(leftFactor.getValue()*rightFactor.getValue(), leftFactor.getUnit()+"*"+rightFactor.getUnit());
-                result.refactorUnit();
+                if(leftFactor.getUnit().equals("") && rightFactor.getUnit().equals("")){
+                    result=new NumberValueFactor(leftFactor.getValue()/rightFactor.getValue(), leftFactor.getUnit());
+                }
+                else if(rightFactor.getUnit().equals("")){
+                    result=new NumberValueFactor(leftFactor.getValue()/rightFactor.getValue(), leftFactor.getUnit());
+                }
+                else if(leftFactor.getUnit().equals("")){
+                    result=new NumberValueFactor(leftFactor.getValue()/rightFactor.getValue(), rightFactor.getUnit());
+                }
+                else{
+                    result=new NumberValueFactor(leftFactor.getValue()/rightFactor.getValue(), leftFactor.getUnit()+"/"+rightFactor.getUnit());
+                }
                 return result;
             case MLT:
-                result=new NumberValueFactor(leftFactor.getValue()/rightFactor.getValue(), leftFactor.getUnit()+"*"+rightFactor.getUnit());
-                result.refactorUnit();
+                result=new NumberValueFactor(leftFactor.getValue()*rightFactor.getValue(), leftFactor.getUnit()+"*"+rightFactor.getUnit());
                 return result;
         }
         throw new Exception("ERROR");

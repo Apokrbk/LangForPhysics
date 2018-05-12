@@ -11,6 +11,11 @@ public class LogOperator {
         AND,
         OR
     }
+
+    public OpType getOpType() {
+        return opType;
+    }
+
     private OpType opType;
     public LogOperator(String operator){
         switch(operator){

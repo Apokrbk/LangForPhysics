@@ -2,6 +2,7 @@ package AST.Func;
 
 import AST.Factor.VariableFactor;
 import AST.Statement.Statement;
+import Program.Context;
 
 import java.util.ArrayList;
 
@@ -36,4 +37,5 @@ public class FuncStatement extends Statement {
 
         return "func "+name+"("+argsString.substring(0, argsString.length() - 1)+"){ "+statementsString+"}";
     }
+
 }
