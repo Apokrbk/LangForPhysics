@@ -1,0 +1,12 @@
+a = 5[kg];
+b = 2[kg];
+x = 5[kg];
+
+func _mult(a,b){
+ result = a*b;
+ return result;
+ }
+
+if(a>b and a>b){
+ x = _mult(a,b);
+ }

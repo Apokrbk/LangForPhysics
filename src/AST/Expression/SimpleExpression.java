@@ -48,6 +48,7 @@ public class SimpleExpression extends Expression {
                     result=new NumberValueFactor(leftFactor.getValue()/rightFactor.getValue(), rightFactor.getUnit());
                 }
                 else{
+                    rightFactor.reverseUnit();
                     result=new NumberValueFactor(leftFactor.getValue()/rightFactor.getValue(), leftFactor.getUnit()+"/"+rightFactor.getUnit());
                 }
                 return result;

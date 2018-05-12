@@ -147,10 +147,12 @@ public class Parser {
     private String parseUnit() throws Exception {
         StringBuilder unit;
         requireToken(Token.TokenType.LSQBRACKET);
-        requireToken(Token.TokenType.UNIT, Token.TokenType.RSQBRACKET);
-        if(token.getType()== Token.TokenType.UNIT){
+        requireToken(Token.TokenType.UNIT, Token.TokenType.RSQBRACKET, Token.TokenType.MLTPOP);
+        if(token.getType()== Token.TokenType.UNIT || token.getType()== Token.TokenType.MLTPOP){
             unit = new StringBuilder(token.getData());
-            requireToken(Token.TokenType.MLTPOP, Token.TokenType.RSQBRACKET);
+            if(token.getType()== Token.TokenType.UNIT) {
+                requireToken(Token.TokenType.MLTPOP, Token.TokenType.RSQBRACKET);
+            }
             while(token.getType()!= Token.TokenType.RSQBRACKET)
             {
                 unit.append(token.getData());
@@ -251,9 +253,10 @@ public class Parser {
 
     private Expression parseLogSimpleExpression(Expression lhs, int min_prec) throws Exception {
         while(tok_prec >= min_prec){
+            int tok_prec_prev=tok_prec;
             LogOperator operator=new LogOperator(token.getData());
             Expression rhs = parseExpression();
-            while(tok_prec > min_prec){
+            while(tok_prec > min_prec && tok_prec_prev!=5){
                 rhs = parseLogSimpleExpression(rhs, tok_prec);
             }
             lhs = new LogSimpleExpression(lhs, operator, rhs);

@@ -3,6 +3,7 @@ package AST.Factor;
 import Program.Context;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class NumberValueFactor extends Factor{
@@ -41,6 +42,8 @@ public class NumberValueFactor extends Factor{
         ArrayList<String> nominator=new ArrayList<>();
         divideUnitIntoNominatorAndDenominator(a, denominator, nominator);
         unit="";
+        denominator.removeAll(Arrays.asList(null,""));
+        nominator.removeAll(Arrays.asList(null,""));
         shortenFraction(denominator, nominator);
         checkN(denominator, nominator);
         checkC(nominator);
@@ -51,11 +54,13 @@ public class NumberValueFactor extends Factor{
         }
         Collections.sort(nominator);
         Collections.sort(denominator);
-        unit=nominator.get(0);
+        if(nominator.size()!=0)
+            unit=nominator.get(0);
+        else
+            unit="";
         for(int i=1; i<nominator.size(); i++)
             unit+="*"+nominator.get(i);
-        for(int i=0; i<denominator.size(); i++)
-            unit+="/"+denominator.get(i);
+        for (String aDenominator : denominator) unit += "/" + aDenominator;
 
     }
 
@@ -65,6 +70,12 @@ public class NumberValueFactor extends Factor{
             nominator.remove("s");
             nominator.add("C");
         }
+    }
+
+    public void reverseUnit(){
+        unit = unit.replaceAll("\\*", "?");
+        unit = unit.replaceAll("/", "*");
+        unit = unit.replaceAll("\\?", "/");
     }
 
     private void divideUnitIntoNominatorAndDenominator(String[] a, ArrayList<String> denominator, ArrayList<String> nominator) {

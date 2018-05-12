@@ -3,7 +3,6 @@ mass = 5[kg];
 h = 2[m];
 
 w = g*mass*h;
-
 work = 75[J];
 
 x=0[];

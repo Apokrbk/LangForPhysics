@@ -50,6 +50,14 @@ public class ParserTest {
         assertEquals("x=((a*b)+c);", statement);
     }
     @Test
+    public void parseSimpleAssignmentIdss() throws Exception {
+        Lexer lexer = new Lexer("x=a*b+c*d");
+        Parser parser = new Parser(lexer);
+        Program program = parser.parse();
+        String statement=program.toString();
+        assertEquals("x=((a*b)+(c*d));", statement);
+    }
+    @Test
     public void parseSimpleAssignmentIdPlusIdMltId() throws Exception {
         Lexer lexer = new Lexer("x=a+b*c");
         Parser parser = new Parser(lexer);
@@ -118,7 +126,7 @@ public class ParserTest {
         Parser parser = new Parser(lexer);
         Program program = parser.parse();
         String statement=program.toString();
-        assertEquals("if((a>(b>c))){" +"\n"+
+        assertEquals("if(((a>b)>c)){" +"\n"+
                 "a=2[];" + "\n"+
                 "a=3[];}", statement);
     }
@@ -245,7 +253,7 @@ public class ParserTest {
         Parser parser = new Parser(lexer);
         Program program = parser.parse();
         String statement=program.toString();
-        assertEquals("while((a>(b>c))){" +"\n"+
+        assertEquals("while(((a>b)>c)){" +"\n"+
                 "a=2[];" + "\n"+
                 "a=3[];}", statement);
     }
@@ -294,7 +302,17 @@ public class ParserTest {
     public void parseUnitWithManyUnitsError() throws Exception {
         Lexer lexer = new Lexer("x = 2[kg+m-s/s]");
         Parser parser = new Parser(lexer);
+        parser.parse();
+    }
+
+    @Test
+    public void parseIfTwoConditionsWithAnd() throws Exception {
+        Lexer lexer = new Lexer("if(a>b and b>a){a=2[];a=3[];}");
+        Parser parser = new Parser(lexer);
         Program program = parser.parse();
         String statement=program.toString();
+        assertEquals("if(((a>b) and (b>a))){" +"\n"+
+                "a=2[];" + "\n"+
+                "a=3[];}", statement);
     }
 }

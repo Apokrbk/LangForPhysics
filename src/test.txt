@@ -1,20 +1,12 @@
-i=4[];
-mass=5[kg];
-vel=20[m]/2[s];
-time=2[s];
-acc=vel/time;
-while(i>0[]){
-    force=mass*acc;
-    i=i-1[];
-    acc=acc-1[m/s/s];
-}
-d = 5[s];
-e = 10[A];
-z=d*e;
+a = 5[kg];
+  b = 2[kg];
+  x = 5[kg];
 
-dzulesrule = force * 10[m];
+  func _mult(a,b){
+   result = a*b;
+   return result;
+   }
 
-zczx=2[kg*m];
-cczz=10[m*kg];
-
-x = 10[]*mass-2[kg]*2[];
+  if(a>b and a>b){
+   x = _mult(a,b);
+   }

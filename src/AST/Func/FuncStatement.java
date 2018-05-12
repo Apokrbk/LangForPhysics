@@ -38,4 +38,14 @@ public class FuncStatement extends Statement {
         return "func "+name+"("+argsString.substring(0, argsString.length() - 1)+"){ "+statementsString+"}";
     }
 
+    @Override
+    public void execute(Context context) throws Exception {
+        context.addFunction(name, this);
+    }
+
+    public void callFunc(Context context) throws Exception{
+        for(Statement statement: statements) {
+            statement.execute(context);
+        }
+    }
 }
