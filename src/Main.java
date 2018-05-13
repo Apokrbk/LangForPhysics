@@ -18,7 +18,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         String input = null;
         try {
-            input = readFile("src/test.txt", StandardCharsets.UTF_8);
+            input = readFile("src/sourcecode.txt", StandardCharsets.UTF_8);
             System.out.println(input);
         } catch (IOException e) {
             e.printStackTrace();

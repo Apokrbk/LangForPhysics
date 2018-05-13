@@ -1,5 +1,6 @@
-package Parser;
+package Tests;
 
+import Parser.Parser;
 import Program.Program;
 import Lexer.Lexer;
 import org.junit.Test;

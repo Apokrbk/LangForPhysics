@@ -1,4 +1,8 @@
-package Lexer;
+package Tests;
+
+import Lexer.Lexer;
+import org.junit.Assert;
+import Lexer.Token;
 
 import static org.junit.Assert.*;
 
@@ -8,14 +12,14 @@ public class LexerTest {
     public void shouldReturnEndWhenGivenEmptyInput(){
         Lexer lexer = new Lexer("");
         Token token = lexer.nextToken();
-        assertEquals(Token.TokenType.END, token.getType());
+        Assert.assertEquals(Token.TokenType.END, token.getType());
     }
 
     @org.junit.Test
     public void shouldReturnIdentifierTokenWhenGivenIdentifier() {
         Lexer lexer = new Lexer("abc123");
         Token token = lexer.nextToken();
-        assertEquals(Token.TokenType.IDENTIFIER, token.getType());
+        Assert.assertEquals(Token.TokenType.IDENTIFIER, token.getType());
         assertEquals("abc123", token.getData());
     }
 
@@ -24,7 +28,7 @@ public class LexerTest {
         Lexer lexer = new Lexer("=abc123");
         Token token = lexer.nextToken();
         token = lexer.nextToken();
-        assertEquals( Token.TokenType.IDENTIFIER, token.getType());
+        Assert.assertEquals( Token.TokenType.IDENTIFIER, token.getType());
         assertEquals("abc123", token.getData());
     }
 
@@ -32,7 +36,7 @@ public class LexerTest {
     public void shouldReturnIdWhenGivenFloor() {
         Lexer lexer = new Lexer("_");
         Token token = lexer.nextToken();
-        assertEquals( Token.TokenType.IDENTIFIER, token.getType());
+        Assert.assertEquals( Token.TokenType.IDENTIFIER, token.getType());
         assertEquals("_", token.getData());
     }
 
@@ -40,7 +44,7 @@ public class LexerTest {
     public void shouldReturnNumberTokenWhenGivenNumber() {
         Lexer lexer = new Lexer("1234");
         Token token = lexer.nextToken();
-        assertEquals(Token.TokenType.NUMBER,token.getType() );
+        Assert.assertEquals(Token.TokenType.NUMBER,token.getType() );
         assertEquals( "1234",token.getData());
     }
 
@@ -48,7 +52,7 @@ public class LexerTest {
     public void shouldReturnLogOpTokenWhenGivenLogOp() {
         Lexer lexer = new Lexer("<=");
         Token token = lexer.nextToken();
-        assertEquals( Token.TokenType.LOGOP, token.getType());
+        Assert.assertEquals( Token.TokenType.LOGOP, token.getType());
         assertEquals( "<=", token.getData());
     }
 
@@ -56,7 +60,7 @@ public class LexerTest {
     public void shouldReturnIdentifierTokenWhenGivenLogOp() {
         Lexer lexer = new Lexer("==");
         Token token = lexer.nextToken();
-        assertEquals( Token.TokenType.LOGOP, token.getType());
+        Assert.assertEquals( Token.TokenType.LOGOP, token.getType());
         assertEquals( "==", token.getData());
     }
 
@@ -64,14 +68,14 @@ public class LexerTest {
     public void shouldReturnErrorTokenWhenGivenNumberStartingWith0() {
         Lexer lexer = new Lexer("0123");
         Token token = lexer.nextToken();
-        assertEquals( Token.TokenType.ERROR, token.getType());
+        Assert.assertEquals( Token.TokenType.ERROR, token.getType());
     }
 
     @org.junit.Test
     public void shouldReturnErrorTokenWhenGivenIdentifierStartingWith0() {
         Lexer lexer = new Lexer("00asbsad");
         Token token = lexer.nextToken();
-        assertEquals( Token.TokenType.ERROR, token.getType());
+        Assert.assertEquals( Token.TokenType.ERROR, token.getType());
     }
 
     @org.junit.Test
@@ -80,11 +84,11 @@ public class LexerTest {
         Token token1 = lexer.nextToken();
         Token token2 = lexer.nextToken();
         Token token3 = lexer.nextToken();
-        assertEquals( Token.TokenType.IDENTIFIER, token1.getType());
+        Assert.assertEquals( Token.TokenType.IDENTIFIER, token1.getType());
         assertEquals( "a", token1.getData());
-        assertEquals( Token.TokenType.EQ, token2.getType());
+        Assert.assertEquals( Token.TokenType.EQ, token2.getType());
         assertEquals( "=", token2.getData());
-        assertEquals( Token.TokenType.NUMBER, token3.getType());
+        Assert.assertEquals( Token.TokenType.NUMBER, token3.getType());
         assertEquals( "5", token3.getData());
     }
 
@@ -97,17 +101,17 @@ public class LexerTest {
         Token token3 = lexer.nextToken();
         Token token4 = lexer.nextToken();
         Token token5 = lexer.nextToken();
-        assertEquals( Token.TokenType.IFSTATEMENT, token0.getType());
+        Assert.assertEquals( Token.TokenType.IFSTATEMENT, token0.getType());
         assertEquals( "if", token0.getData());
-        assertEquals( Token.TokenType.LPAREN, token1.getType());
+        Assert.assertEquals( Token.TokenType.LPAREN, token1.getType());
         assertEquals( "(", token1.getData());
-        assertEquals( Token.TokenType.IDENTIFIER, token2.getType());
+        Assert.assertEquals( Token.TokenType.IDENTIFIER, token2.getType());
         assertEquals( "a123", token2.getData());
-        assertEquals( Token.TokenType.EQ, token3.getType());
+        Assert.assertEquals( Token.TokenType.EQ, token3.getType());
         assertEquals( "=", token3.getData());
-        assertEquals( Token.TokenType.NUMBER, token4.getType());
+        Assert.assertEquals( Token.TokenType.NUMBER, token4.getType());
         assertEquals( "2", token4.getData());
-        assertEquals( Token.TokenType.RPAREN, token5.getType());
+        Assert.assertEquals( Token.TokenType.RPAREN, token5.getType());
         assertEquals( ")", token5.getData());
     }
 
@@ -115,7 +119,7 @@ public class LexerTest {
     public void shouldReturnLParenTokenWhenGivenLParen() {
         Lexer lexer = new Lexer("{");
         Token token = lexer.nextToken();
-        assertEquals( Token.TokenType.LBRACKET, token.getType());
+        Assert.assertEquals( Token.TokenType.LBRACKET, token.getType());
         assertEquals( "{", token.getData());
     }
 
@@ -123,7 +127,7 @@ public class LexerTest {
     public void shouldReturnUnitTokenWhenGivenUnit() {
         Lexer lexer = new Lexer("kg");
         Token token = lexer.nextToken();
-        assertEquals( Token.TokenType.UNIT, token.getType());
+        Assert.assertEquals( Token.TokenType.UNIT, token.getType());
         assertEquals( "kg", token.getData());
     }
 
@@ -131,7 +135,7 @@ public class LexerTest {
     public void shouldReturnReturnTokenWhenGivenReturn() {
         Lexer lexer = new Lexer("return");
         Token token = lexer.nextToken();
-        assertEquals( Token.TokenType.RETURNSTATEMENT, token.getType());
+        Assert.assertEquals( Token.TokenType.RETURNSTATEMENT, token.getType());
         assertEquals( "return", token.getData());
     }
 
@@ -139,7 +143,7 @@ public class LexerTest {
     public void shouldReturnFuncTokenWhenGivenFunc() {
         Lexer lexer = new Lexer("func");
         Token token = lexer.nextToken();
-        assertEquals( Token.TokenType.FUNCSTATEMENT, token.getType());
+        Assert.assertEquals( Token.TokenType.FUNCSTATEMENT, token.getType());
         assertEquals( "func", token.getData());
     }
 
@@ -152,17 +156,17 @@ public class LexerTest {
         Token token3 = lexer.nextToken();
         Token token4 = lexer.nextToken();
         Token token5 = lexer.nextToken();
-        assertEquals( Token.TokenType.PRINTSTATEMENT, token.getType());
+        Assert.assertEquals( Token.TokenType.PRINTSTATEMENT, token.getType());
         assertEquals( "print", token.getData());
-        assertEquals( Token.TokenType.LPAREN, token1.getType());
+        Assert.assertEquals( Token.TokenType.LPAREN, token1.getType());
         assertEquals( "(", token1.getData());
-        assertEquals( Token.TokenType.STRING, token2.getType());
+        Assert.assertEquals( Token.TokenType.STRING, token2.getType());
         assertEquals( "\"test\"", token2.getData());
-        assertEquals( Token.TokenType.COMMA, token3.getType());
+        Assert.assertEquals( Token.TokenType.COMMA, token3.getType());
         assertEquals( ",", token3.getData());
-        assertEquals( Token.TokenType.IDENTIFIER, token4.getType());
+        Assert.assertEquals( Token.TokenType.IDENTIFIER, token4.getType());
         assertEquals( "a1", token4.getData());
-        assertEquals( Token.TokenType.RPAREN, token5.getType());
+        Assert.assertEquals( Token.TokenType.RPAREN, token5.getType());
         assertEquals( ")", token5.getData());
     }
 }

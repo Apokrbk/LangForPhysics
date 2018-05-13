@@ -46,12 +46,9 @@ public class NumberValueFactor extends Factor{
         nominator.removeAll(Arrays.asList(null,""));
         shortenFraction(denominator, nominator);
         checkN(denominator, nominator);
+        checkJ(nominator);
         checkC(nominator);
-        if(nominator.contains("N") && nominator.contains("m")){
-            nominator.remove("N");
-            nominator.remove("m");
-            nominator.add("J");
-        }
+        checkW(denominator, nominator);
         Collections.sort(nominator);
         Collections.sort(denominator);
         if(nominator.size()!=0)
@@ -62,6 +59,22 @@ public class NumberValueFactor extends Factor{
             unit+="*"+nominator.get(i);
         for (String aDenominator : denominator) unit += "/" + aDenominator;
 
+    }
+
+    private void checkW(ArrayList<String> denominator, ArrayList<String> nominator) {
+        if(nominator.contains("J") && denominator.contains("s")){
+            nominator.remove("J");
+            denominator.remove("s");
+            nominator.add("W");
+        }
+    }
+
+    private void checkJ(ArrayList<String> nominator) {
+        if(nominator.contains("N") && nominator.contains("m")){
+            nominator.remove("N");
+            nominator.remove("m");
+            nominator.add("J");
+        }
     }
 
     private void checkC(ArrayList<String> nominator) {
