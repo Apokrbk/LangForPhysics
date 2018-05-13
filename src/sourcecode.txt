@@ -1,14 +1,9 @@
-func _multpl(f1, f2){
- result = _sum(f1,f2);
- return result;
+h = 10[m];
+g = 10[m/s/s];
+
+gh2 = 2[]*h/g;
+
+if(h>10[m] and g>=10[m/s/s]){
+x = 1[];
 }
 
-func _sum(a1, a2){
-result = a1+a2;
-return result;
-}
-
-x = 2[];
-y=3[];
-
-z = _multpl(x,y);

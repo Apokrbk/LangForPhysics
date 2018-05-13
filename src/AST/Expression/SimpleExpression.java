@@ -50,6 +50,7 @@ public class SimpleExpression extends Expression {
                 else{
                     rightFactor.reverseUnit();
                     result=new NumberValueFactor(leftFactor.getValue()/rightFactor.getValue(), leftFactor.getUnit()+"/"+rightFactor.getUnit());
+                    rightFactor.reverseUnit();
                 }
                 return result;
             case MLT:
