@@ -31,6 +31,7 @@ public class FuncCall extends Factor{
     public NumberValueFactor calculate(Context context) throws Exception {
         Context funcContext = new Context();
         FuncStatement funcStatement = context.getFunctionWithName(name);
+        context.moveAllFunctionsToAnotherContext(funcContext);
         for(int i=0; i<arguments.size(); i++){
             funcContext.addVariable(funcStatement.arguments.get(i).toString(), arguments.get(i).calculate(context));
         }

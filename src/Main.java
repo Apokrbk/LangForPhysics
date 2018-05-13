@@ -28,7 +28,5 @@ public class Main {
         Program program = parser.parse();
         program.execute();
         program.getContext().printVariables();
-
-
     }
 }

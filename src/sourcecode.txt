@@ -1,22 +1,14 @@
 func _multpl(f1, f2){
-
- result = f1*f2;
+ result = _sum(f1,f2);
  return result;
 }
 
-i=5[];
-
-mass=5[kg];
-
-vel=20[m]/2[s];
-
-time=2[s];
-
-acc=vel/time;
-
-while(i>0[]){
-
- force=_multpl(mass,acc);
- i=i-1[];
- acc=acc-1[m/s/s];
+func _sum(a1, a2){
+result = a1+a2;
+return result;
 }
+
+x = 2[];
+y=3[];
+
+z = _multpl(x,y);

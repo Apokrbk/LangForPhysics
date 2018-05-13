@@ -31,4 +31,7 @@ public class Context {
     public void printVariables(){
         System.out.println(Arrays.asList(variables));
     }
+    public void moveAllFunctionsToAnotherContext(Context context){
+        context.functions = new HashMap<String, FuncStatement>(functions);
+    }
 }
