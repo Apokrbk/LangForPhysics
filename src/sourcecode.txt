@@ -1,11 +1,22 @@
-g = 10[m/s/s];
-mass = 5[kg];
-h = 2[m];
+func _multpl(f1, f2){
 
-w = g*mass*h;
-work = 75[J];
+ result = f1*f2;
+ return result;
+}
 
-x=0[];
-if(w>work){
- x=1[];
+i=5[];
+
+mass=5[kg];
+
+vel=20[m]/2[s];
+
+time=2[s];
+
+acc=vel/time;
+
+while(i>0[]){
+
+ force=_multpl(mass,acc);
+ i=i-1[];
+ acc=acc-1[m/s/s];
 }

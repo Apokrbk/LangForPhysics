@@ -33,7 +33,7 @@ public class Lexer {
             currentLine++;
         }
     }
-    public Token nextToken() {
+    public Token nextToken() throws Exception {
         tokenData = "";
         nextChar();
         while (isWhitespace(currentChar)) {
@@ -56,10 +56,10 @@ public class Lexer {
         else if(currentChar=='"'){
             return tryString();
         }
-        return new Token(Token.TokenType.ERROR, "Invalid sign: " + currentChar, currentLine);
+        throw new Exception("Invalid sign: "+currentChar+" in line: "+currentLine);
     }
 
-    private Token tryZero(){
+    private Token tryZero() throws Exception {
             tokenData+=currentChar;
             nextChar();
             if(isLetter(currentChar) || isDigit(currentChar)){
@@ -68,7 +68,7 @@ public class Lexer {
                     nextChar();
                 }
                 currentPos--;
-                return new Token(Token.TokenType.ERROR, "Identifier or number cannot start with zero: "+tokenData, currentLine);
+                throw new Exception("Identifier or number cannot start with zero: "+tokenData+" in line: "+currentLine);
             }
             else{
                 currentPos--;
@@ -76,14 +76,14 @@ public class Lexer {
             }
     }
 
-    private Token tryString() {
+    private Token tryString() throws Exception {
         tokenData+=Character.toString(currentChar);
         nextChar();
         StringBuilder tokenDataBuilder = new StringBuilder(tokenData);
         while(currentChar != '"'){
             tokenDataBuilder.append(Character.toString(currentChar));
             if(currentChar=='\0'){
-                return new Token(Token.TokenType.ERROR, "Odd number of quotation marks", currentLine);
+                throw new Exception("Odd number of quotation marks in line: "+currentLine);
             }
             nextChar();
         }
@@ -92,7 +92,7 @@ public class Lexer {
         return new Token(Token.TokenType.STRING, tokenData, currentLine);
     }
 
-    private Token tryLogSign() {
+    private Token tryLogSign() throws Exception {
         tokenData += Character.toString(currentChar);
         nextChar();
         if (currentChar == '=') {
@@ -109,10 +109,10 @@ public class Lexer {
                     return new Token(Token.TokenType.LOGOP, tokenData, currentLine);
             }
         }
-        return new Token(Token.TokenType.ERROR, "Unknown logical operator: " + tokenData+currentChar, currentLine);
+        throw new Exception("Unknown logical operator: "+tokenData+" in line: "+currentLine);
     }
 
-    private Token tryDigit() {
+    private Token tryDigit() throws Exception {
             while (isDigit(currentChar)) {
                 tokenData+=currentChar;
                 nextChar();
@@ -123,13 +123,13 @@ public class Lexer {
                     nextChar();
                 }
                 currentPos--;
-                return new Token(Token.TokenType.ERROR, "Identifier cannot start with number: "+tokenData, currentLine);
+                throw new Exception("Identifier cannot start with number in line: "+currentLine);
             }
             else currentPos--;
 
             int value=Integer.parseInt(tokenData);
             if(value>999999){
-                return new Token(Token.TokenType.ERROR, "Number out of range: "+tokenData, currentLine);
+                throw new Exception("Number out of range: "+currentLine);
             }
             else{
                 return new Token(Token.TokenType.NUMBER, tokenData, currentLine);

@@ -39,7 +39,7 @@ public class Parser {
         return program;
     }
 
-    private void nextToken(){
+    private void nextToken() throws Exception {
         token=lexer.nextToken();
         tok_prec=getTok_prec();
     }
@@ -169,6 +169,9 @@ public class Parser {
 
     private FuncStatement parseFuncStatement() throws Exception {
         requireToken(Token.TokenType.IDENTIFIER);
+        if(!token.getData().substring(0,1).equals("_")){
+            throw new Exception("Func name should start with _");
+        }
         FuncStatement funcStatement=new FuncStatement(token.getData());
         requireToken(Token.TokenType.LPAREN);
         requireToken(Token.TokenType.RPAREN, Token.TokenType.IDENTIFIER);

@@ -9,14 +9,14 @@ import static org.junit.Assert.*;
 public class LexerTest {
 
     @org.junit.Test
-    public void shouldReturnEndWhenGivenEmptyInput(){
+    public void shouldReturnEndWhenGivenEmptyInput() throws Exception {
         Lexer lexer = new Lexer("");
         Token token = lexer.nextToken();
         Assert.assertEquals(Token.TokenType.END, token.getType());
     }
 
     @org.junit.Test
-    public void shouldReturnIdentifierTokenWhenGivenIdentifier() {
+    public void shouldReturnIdentifierTokenWhenGivenIdentifier() throws Exception {
         Lexer lexer = new Lexer("abc123");
         Token token = lexer.nextToken();
         Assert.assertEquals(Token.TokenType.IDENTIFIER, token.getType());
@@ -24,7 +24,7 @@ public class LexerTest {
     }
 
     @org.junit.Test
-    public void shouldReturnIdentifierTokenWhenGivenIdentifierAfterEqualSign() {
+    public void shouldReturnIdentifierTokenWhenGivenIdentifierAfterEqualSign() throws Exception {
         Lexer lexer = new Lexer("=abc123");
         Token token = lexer.nextToken();
         token = lexer.nextToken();
@@ -33,7 +33,7 @@ public class LexerTest {
     }
 
     @org.junit.Test
-    public void shouldReturnIdWhenGivenFloor() {
+    public void shouldReturnIdWhenGivenFloor() throws Exception {
         Lexer lexer = new Lexer("_");
         Token token = lexer.nextToken();
         Assert.assertEquals( Token.TokenType.IDENTIFIER, token.getType());
@@ -41,7 +41,7 @@ public class LexerTest {
     }
 
     @org.junit.Test
-    public void shouldReturnNumberTokenWhenGivenNumber() {
+    public void shouldReturnNumberTokenWhenGivenNumber() throws Exception {
         Lexer lexer = new Lexer("1234");
         Token token = lexer.nextToken();
         Assert.assertEquals(Token.TokenType.NUMBER,token.getType() );
@@ -49,7 +49,7 @@ public class LexerTest {
     }
 
     @org.junit.Test
-    public void shouldReturnLogOpTokenWhenGivenLogOp() {
+    public void shouldReturnLogOpTokenWhenGivenLogOp() throws Exception {
         Lexer lexer = new Lexer("<=");
         Token token = lexer.nextToken();
         Assert.assertEquals( Token.TokenType.LOGOP, token.getType());
@@ -57,29 +57,27 @@ public class LexerTest {
     }
 
     @org.junit.Test
-    public void shouldReturnIdentifierTokenWhenGivenLogOp() {
+    public void shouldReturnIdentifierTokenWhenGivenLogOp() throws Exception {
         Lexer lexer = new Lexer("==");
         Token token = lexer.nextToken();
         Assert.assertEquals( Token.TokenType.LOGOP, token.getType());
         assertEquals( "==", token.getData());
     }
 
-    @org.junit.Test
-    public void shouldReturnErrorTokenWhenGivenNumberStartingWith0() {
+    @org.junit.Test(expected = Exception.class)
+    public void shouldReturnErrorTokenWhenGivenNumberStartingWith0() throws Exception {
         Lexer lexer = new Lexer("0123");
         Token token = lexer.nextToken();
-        Assert.assertEquals( Token.TokenType.ERROR, token.getType());
     }
 
-    @org.junit.Test
-    public void shouldReturnErrorTokenWhenGivenIdentifierStartingWith0() {
+    @org.junit.Test(expected = Exception.class)
+    public void shouldReturnErrorTokenWhenGivenIdentifierStartingWith0() throws Exception {
         Lexer lexer = new Lexer("00asbsad");
         Token token = lexer.nextToken();
-        Assert.assertEquals( Token.TokenType.ERROR, token.getType());
     }
 
     @org.junit.Test
-    public void shouldReturnAssignStatementWhenGivenAssign() {
+    public void shouldReturnAssignStatementWhenGivenAssign() throws Exception {
         Lexer lexer = new Lexer("a=5");
         Token token1 = lexer.nextToken();
         Token token2 = lexer.nextToken();
@@ -93,7 +91,7 @@ public class LexerTest {
     }
 
     @org.junit.Test
-    public void shouldReturnIfTokenWhenGivenIf() {
+    public void shouldReturnIfTokenWhenGivenIf() throws Exception {
         Lexer lexer = new Lexer("if(a123=2)");
         Token token0 = lexer.nextToken();
         Token token1 = lexer.nextToken();
@@ -116,7 +114,7 @@ public class LexerTest {
     }
 
     @org.junit.Test
-    public void shouldReturnLParenTokenWhenGivenLParen() {
+    public void shouldReturnLParenTokenWhenGivenLParen() throws Exception {
         Lexer lexer = new Lexer("{");
         Token token = lexer.nextToken();
         Assert.assertEquals( Token.TokenType.LBRACKET, token.getType());
@@ -124,7 +122,7 @@ public class LexerTest {
     }
 
     @org.junit.Test
-    public void shouldReturnUnitTokenWhenGivenUnit() {
+    public void shouldReturnUnitTokenWhenGivenUnit() throws Exception {
         Lexer lexer = new Lexer("kg");
         Token token = lexer.nextToken();
         Assert.assertEquals( Token.TokenType.UNIT, token.getType());
@@ -132,7 +130,7 @@ public class LexerTest {
     }
 
     @org.junit.Test
-    public void shouldReturnReturnTokenWhenGivenReturn() {
+    public void shouldReturnReturnTokenWhenGivenReturn() throws Exception {
         Lexer lexer = new Lexer("return");
         Token token = lexer.nextToken();
         Assert.assertEquals( Token.TokenType.RETURNSTATEMENT, token.getType());
@@ -140,7 +138,7 @@ public class LexerTest {
     }
 
     @org.junit.Test
-    public void shouldReturnFuncTokenWhenGivenFunc() {
+    public void shouldReturnFuncTokenWhenGivenFunc() throws Exception {
         Lexer lexer = new Lexer("func");
         Token token = lexer.nextToken();
         Assert.assertEquals( Token.TokenType.FUNCSTATEMENT, token.getType());
@@ -148,7 +146,7 @@ public class LexerTest {
     }
 
     @org.junit.Test
-    public void shouldReturnPrintStatementTokenWhenGivenPrint() {
+    public void shouldReturnPrintStatementTokenWhenGivenPrint() throws Exception {
         Lexer lexer = new Lexer("print(\"test\", a1)");
         Token token = lexer.nextToken();
         Token token1 = lexer.nextToken();
