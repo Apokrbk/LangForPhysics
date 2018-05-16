@@ -80,7 +80,7 @@ public class ParserTest {
         Parser parser = new Parser(lexer);
         Program program = parser.parse();
         String statement=program.toString();
-        assertEquals("x=((a*(b*c))+d);", statement);
+        assertEquals("x=(((a*b)*c)+d);", statement);
     }
     @Test
     public void parseSimpleAssignmentIdMltIdMltIdMltId() throws Exception {
@@ -88,7 +88,7 @@ public class ParserTest {
         Parser parser = new Parser(lexer);
         Program program = parser.parse();
         String statement=program.toString();
-        assertEquals("x=(a*((b*c)*d));", statement);
+        assertEquals("x=(((a*b)*c)*d);", statement);
     }
     @Test
     public void parseSimpleAssignmentIdMltIdMltIdMltIdMltId() throws Exception {
@@ -96,7 +96,7 @@ public class ParserTest {
         Parser parser = new Parser(lexer);
         Program program = parser.parse();
         String statement=program.toString();
-        assertEquals("x=(a*(((b*c)*d)*e));", statement);
+        assertEquals("x=((((a*b)*c)*d)*e);", statement);
     }
 
     @Test

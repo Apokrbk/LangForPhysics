@@ -106,20 +106,19 @@ public class Parser {
     private Expression parseSumExpression(Expression lhs, int min_prec) throws Exception {
         Token tok2=token;
         nextToken();
-        boolean wasInWhile=false;
         while(tok_prec >= min_prec && (tok_prec==1 || tok_prec==0)){
-            wasInWhile=true;
+            int tok_prec_prev=tok_prec;
             Operator operator=new Operator(token.getData());
             nextToken();
             Expression rhs = parseFactor();
             nextToken();
-            while(tok_prec > min_prec && (tok_prec==1 || tok_prec==0)){
+            while(tok_prec > min_prec && tok_prec_prev!=1 && (tok_prec==1 || tok_prec==0)){
                 rhs = parseSumExpression(rhs, tok_prec);
                 nextToken();
             }
             lhs = new SimpleExpression(lhs, operator, rhs);
         }
-        if(!wasInWhile && (token.getType()== Token.TokenType.IDENTIFIER || token.getType()== Token.TokenType.NUMBER)){
+        if(token.getType()== Token.TokenType.IDENTIFIER || token.getType()== Token.TokenType.NUMBER){
             Operator operator=new Operator(tok2.getData());
             Expression rhs = parseFactor();
             lhs = new SimpleExpression(lhs, operator, rhs);

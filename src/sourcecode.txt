@@ -1,9 +1,9 @@
-h = 10[m];
-g = 10[m/s/s];
+a = 2[] + 2[]*3[] - 5[]*1[]-5[];
+a = a*2[];
+b = 0[] - 1[];
+a = a*b;
 
-gh2 = 2[]*h/g;
+force = 15[N];
+force2 = 10[kg*m/s/s];
 
-if(h>10[m] and g>=10[m/s/s]){
-x = 1[];
-}
-
+force3 = force - force2;
