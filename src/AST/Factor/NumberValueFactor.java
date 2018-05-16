@@ -49,6 +49,10 @@ public class NumberValueFactor extends Factor{
         checkJ(nominator);
         checkC(nominator);
         checkW(denominator, nominator);
+        if(nominator.isEmpty() && denominator.contains("s") && denominator.size()==1){
+            nominator.add("Hz");
+            denominator.remove("s");
+        }
         Collections.sort(nominator);
         Collections.sort(denominator);
         if(nominator.size()!=0)

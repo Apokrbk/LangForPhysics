@@ -1,9 +1,0 @@
-a = 2[] + 2[]*3[] - 5[]*1[]-5[];
-a = a*2[];
-b = 0[] - 1[];
-a = a*b;
-
-force = 15[N];
-force2 = 10[kg*m/s/s];
-
-force3 = force - force2;
