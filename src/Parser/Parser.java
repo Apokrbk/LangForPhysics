@@ -34,7 +34,7 @@ public class Parser {
         nextToken();
         parseProgram();
         if (token.getType() != Token.TokenType.END){
-            throw new Exception("ERROR");
+            throw new Exception("Program not parsed because of errors");
         }
         return program;
     }
@@ -106,13 +106,13 @@ public class Parser {
     private Expression parseSumExpression(Expression lhs, int min_prec) throws Exception {
         Token tok2=token;
         nextToken();
-        while(tok_prec >= min_prec && (tok_prec==1 || tok_prec==0)){
+        while(isOperatorWithGreaterOrEqualPrecThanMinPrec(min_prec)){
             int tok_prec_prev=tok_prec;
             Operator operator=new Operator(token.getData());
             nextToken();
             Expression rhs = parseFactor();
             nextToken();
-            while(tok_prec > min_prec && tok_prec_prev!=1 && (tok_prec==1 || tok_prec==0)){
+            while(isOperatorWithGreaterPrecThanMinPrec(min_prec, tok_prec_prev)){
                 rhs = parseSumExpression(rhs, tok_prec);
                 nextToken();
             }
@@ -124,6 +124,14 @@ public class Parser {
             lhs = new SimpleExpression(lhs, operator, rhs);
         }
         return lhs;
+    }
+
+    private boolean isOperatorWithGreaterPrecThanMinPrec(int min_prec, int tok_prec_prev) {
+        return tok_prec > min_prec && tok_prec_prev!=1 && (tok_prec==1 || tok_prec==0);
+    }
+
+    private boolean isOperatorWithGreaterOrEqualPrecThanMinPrec(int min_prec) {
+        return tok_prec >= min_prec && (tok_prec==1 || tok_prec==0);
     }
 
     private int getTok_prec() {
@@ -232,21 +240,24 @@ public class Parser {
         }
         else{
             if(token.getData().substring(0, 1).equals("_")){
-                String funcName=token.getData();
-                requireToken(Token.TokenType.LPAREN);
-                ArrayList<Factor> arguments= new ArrayList<>();
-                while(token.getType()!= Token.TokenType.RPAREN){
-                    requireToken(Token.TokenType.IDENTIFIER, Token.TokenType.NUMBER);
-                    arguments.add(parseFactor());
-                    requireToken(Token.TokenType.COMMA, Token.TokenType.RPAREN);
-                }
-                return new FuncCall(funcName, arguments);
-
+                return parseFuncCall();
             }
             else{
                 return new VariableFactor(token.getData());
             }
         }
+    }
+
+    private Factor parseFuncCall() throws Exception {
+        String funcName=token.getData();
+        requireToken(Token.TokenType.LPAREN);
+        ArrayList<Factor> arguments= new ArrayList<>();
+        while(token.getType()!= Token.TokenType.RPAREN){
+            requireToken(Token.TokenType.IDENTIFIER, Token.TokenType.NUMBER);
+            arguments.add(parseFactor());
+            requireToken(Token.TokenType.COMMA, Token.TokenType.RPAREN);
+        }
+        return new FuncCall(funcName, arguments);
     }
 
     private Expression parseLogExpression() throws Exception {

@@ -1,0 +1,14 @@
+func _multpl(f1, f2){
+ result = _sum(f1,f2);
+ return result;
+}
+
+func _sum(a1, a2){
+result = a1+a2;
+return result;
+}
+
+x = 2[];
+y=3[];
+
+z = _multpl(x,y);
