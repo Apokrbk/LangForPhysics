@@ -199,8 +199,13 @@ public class Parser {
         return funcStatement;
     }
 
-    private Statement parsePrintStatement() {
-        return null;
+    private Statement parsePrintStatement() throws Exception {
+        requireToken(Token.TokenType.LPAREN);
+        requireToken(Token.TokenType.IDENTIFIER);
+        String var = token.getData();
+        requireToken(Token.TokenType.RPAREN);
+        requireToken(Token.TokenType.SEMICOLON);
+        return new PrintStatement(var);
     }
 
     private IfStatement parseIfStatement() throws Exception {

@@ -29,7 +29,11 @@ public class Context {
         return functions.get(fname);
     }
     public void printVariables(){
-        System.out.println(Arrays.asList(variables));
+//        System.out.println(Arrays.asList(variables));
+        for (String name: variables.keySet()){
+            String value = variables.get(name).toString();
+            System.out.println(name + " = " + value);
+        }
     }
     public void moveAllFunctionsToAnotherContext(Context context){
         context.functions = new HashMap<String, FuncStatement>(functions);

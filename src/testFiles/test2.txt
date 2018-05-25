@@ -10,3 +10,5 @@ func _mult(a,b){
 if(a>b and a>b){
  x = _mult(a,b);
  }
+
+ print(x);

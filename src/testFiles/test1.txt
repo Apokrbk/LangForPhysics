@@ -9,3 +9,5 @@ x=0[];
 if(w>work){
  x=1[];
 }
+
+print(x);

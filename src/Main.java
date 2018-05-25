@@ -19,7 +19,6 @@ public class Main {
         String input = null;
         try {
             input = readFile(args[0], StandardCharsets.UTF_8);
-            System.out.println(input);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -27,6 +26,5 @@ public class Main {
         Parser parser = new Parser(lexer);
         Program program = parser.parse();
         program.execute();
-        program.getContext().printVariables();
     }
 }

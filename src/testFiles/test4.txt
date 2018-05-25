@@ -1,0 +1,16 @@
+func _multpl(f1, f2){
+    result = f1*f2;
+    return result;
+}
+i=5[];
+mass=5[kg];
+vel=20[m]/2[s];
+time=2[s];
+acc=vel/time;
+while(i>0[]){
+    force=_multpl(mass,acc);
+    print(force);
+    print(i);
+    i=i-1[];
+acc=acc-1[m/s/s];
+}

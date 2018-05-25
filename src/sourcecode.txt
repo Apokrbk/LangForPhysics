@@ -12,3 +12,5 @@ x = 2[];
 y=3[];
 
 z = _multpl(x,y);
+
+print(z);
